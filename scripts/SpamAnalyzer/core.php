@@ -5,7 +5,7 @@ function connectwp($url){
     $site = new Site("th");
     $data = array();
     $user = array();
-    foreach($site->exturlusage($url, 15) as $item){
+    foreach($site->exturlusage($url, 12) as $item){
         $page = new Page($site, $item["title"]);
         $break = False;
         $adder = Null;
@@ -23,15 +23,15 @@ function connectwp($url){
                 $rig = $mid - 1;
             }
         }
-        $cnt = 0;
-        foreach($revisions as $rev){
-            if($revisions[$adder]["user"] == $rev["user"]){
-                $cnt++;
-            }
-        }
         if($adder == count($revisions) - 1){
             $data[] = array("error" => "beyond limit or at start");
         }else{
+            $cnt = 0;
+            $i = $adder + 1;
+            while($i < count($revisions)){
+                if($revisions[$adder]["user"] == $revisions[$i]["user"]) $cnt++;
+                $i++;
+            }
             $data[] = array("user" => $revisions[$adder]["user"],
                             "timestamp" => $revisions[$adder]["timestamp"],
                             "title" => $item["title"],

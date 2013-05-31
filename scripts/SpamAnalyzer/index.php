@@ -58,7 +58,15 @@ if(!empty($_GET["title"])){
                 <?php
                     for($i = 1; $i <= count($data); ++$i){
                         echo "<div class='tab-pane' id='navtab-${i}'>";
-                        difffun($data[$i - 1]["text1"], $data[$i - 1]["text2"]);
+                        $dat = $data[$i - 1];
+                        if(array_key_exists("error", $dat)){
+                            echo "Unexpected error!";
+                            continue;
+                        }
+                        echo "ผู้ใช้ ${dat['user']} เพิ่มลิงก์ ${dat['url']} " . 
+                             "เมื่อ ${dat['timestamp']} โดยมีการแก้ไขก่อนหน้าการเพิ่มลิงก์นี้ " .
+                             "${dat['edits']} ครั้ง<br />\n";
+                        difffun($dat["text1"], $dat["text2"]);
                         echo "</div>";
                     }
                 ?>
