@@ -8,4 +8,8 @@
         <a href="WikiTranslator.php">WikiTranslator</a> -
         a tool to translate names of (1) wikilinks (2) templates (3) categories from first language to second language based on interlanguage links.
     </li>
+    <li>
+        <a href="SpamAnalyzer.php">SpamAnalyzer</a> -
+        a tool to analyze insertion of url.
+    </li>
 </ul>

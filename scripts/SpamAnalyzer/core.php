@@ -5,7 +5,7 @@ function connectwp($url){
     $site = new Site("th");
     $data = array();
     $user = array();
-    foreach($site->exturlusage($url, 10) as $item){
+    foreach($site->exturlusage($url, 15) as $item){
         $page = new Page($site, $item["title"]);
         $break = False;
         $adder = Null;
@@ -29,8 +29,8 @@ function connectwp($url){
                 $cnt++;
             }
         }
-        if($adder == $limit - 1){
-            $data[] = array("error" => "beyond 500 items");
+        if($adder == count($revisions) - 1){
+            $data[] = array("error" => "beyond limit or at start");
         }else{
             $data[] = array("user" => $revisions[$adder]["user"],
                             "timestamp" => $revisions[$adder]["timestamp"],
