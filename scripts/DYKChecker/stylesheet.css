@@ -1,0 +1,40 @@
+.failed {
+    color: red;
+}
+
+.passed {
+    color: green;
+}
+
+.normal {
+    opacity: 0;
+}
+
+#statbox {
+    font-size: 72px;
+    padding-top: 50px !important;
+    padding: 40px;
+    position: absolute;
+    right: 48px;
+    text-align: center;
+    top: 80px;
+}
+
+.error {
+    text-align: center;
+    background-color: yellow;
+    font-weight: bold;
+    color: red;
+}
+
+#newtext {
+    border: 1px dotted blue;
+    padding: 12px;
+    font-size: 12px;
+    background-color: lightblue;
+    color: black;
+}
+
+.eqtext {
+    color: silver;
+}
