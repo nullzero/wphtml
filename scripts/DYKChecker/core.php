@@ -103,7 +103,7 @@ function connectwp($title){
         $revts = NULL;
         foreach($page->gethist() as $i){
             $revid = $i["revid"];
-            $ts = Timestamp::fromISO($i["timestamp"]);
+            $ts = $i["timestamp"];
             $diff = $ts->diff($now)->days;
             if($diff <= 14){
                 $revdiff = $diff;
@@ -118,11 +118,11 @@ function connectwp($title){
             $oldlendic["result"] = grading(False);
             $oldlendic["value"] = "ไม่พบรุ่นเก่าภายในเวลา 14 วัน";
         }else{
-            $revobj = new Revision($revid);
+            $revobj = new Revision($site, $revid);
             $oldlen = calclen(rem($revobj->get()));
             $oldlendic["result"] = grading(floatval($lentext)/floatval($oldlen) >= 3.0);
             $oldlendic["value"] = "รุ่นเก่าก่อนการแก้ไขเมื่อ " . 
-                                  $revts->format('Y-m-d H:i:s') .
+                                  $revts .
                                   " UTC (${revdiff} วันที่แล้ว) มีความยาว ${oldlen} อักขระ " . 
                                   "ขณะนี้มีเนื้อหาเพิ่มขึ้น " . 
                                   (string)((floatval($lentext)/floatval($oldlen))-1.0) . 
@@ -130,7 +130,7 @@ function connectwp($title){
         }
         $firstcontrib = $page->gethist(1, True);
         $firstcontrib = $firstcontrib[0];
-        $ts = Timestamp::fromISO($firstcontrib["timestamp"]);
+        $ts = $firstcontrib["timestamp"];
         $diff = $ts->diff($now)->days;
         $user = $firstcontrib["user"];
         $createdic = array("text" => "สร้างบทความ",

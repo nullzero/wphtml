@@ -65,7 +65,7 @@ if(!empty($_GET["title"])){
                         }
                         echo "ผู้ใช้ ${dat['user']} เพิ่มลิงก์ ${dat['url']} " . 
                              "เมื่อ ${dat['timestamp']} โดยมีการแก้ไขก่อนหน้าการเพิ่มลิงก์นี้ " .
-                             "${dat['edits']} ครั้ง<br />\n";
+                             "${dat['edits']} ครั้ง<br />\n<br />\n<br />\n";
                         difffun($dat["text1"], $dat["text2"]);
                         echo "</div>";
                     }

@@ -130,6 +130,9 @@ class Page{
                       "rvdir" => $reverse ? "newer" : "older");
         $tmp = $this->site->api($data);
         $tmp = reset($tmp["query"]["pages"]);
+        foreach($tmp["revisions"] as &$item){
+            $item["timestamp"] = Timestamp::fromISO($item["timestamp"]);
+        }
         return $tmp["revisions"];
     }
 }
