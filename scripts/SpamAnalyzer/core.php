@@ -9,6 +9,7 @@ function connectwp($url){
     $cntopt = 0;
     $alldat = $site->exturlusage($url, 50);
     $titles = array();
+    $fail = array();
     foreach($alldat as $item) $titles[] = $item["title"];
     $pages = $site->getAll($titles);
     foreach($alldat as $i => $item){
