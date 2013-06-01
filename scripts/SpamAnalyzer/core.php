@@ -28,6 +28,9 @@ function connectwp($url){
                             "title" => $item["title"],
                             "url" => $item["url"]);
         }else{
+            if($revisions[$adder]["user"] == "BotKung"){
+                continue;
+            }
             $cnt = 0;
             $i = $adder + 1;
             while($i < count($revisions)){
