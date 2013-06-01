@@ -2,6 +2,7 @@
 include 'lib/wp/lib.php';
 
 function connectwp($url){
+    $optout = array("BotKung" => True);
     $site = new Site("th");
     $data = array();
     $users = array();
@@ -28,7 +29,7 @@ function connectwp($url){
                             "title" => $item["title"],
                             "url" => $item["url"]);
         }else{
-            if($revisions[$adder]["user"] == "BotKung"){
+            if(array_key_exists($revisions[$adder]["user"], $optout)){
                 continue;
             }
             $cnt = 0;

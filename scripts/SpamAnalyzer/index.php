@@ -81,5 +81,10 @@ if(!empty($_GET["title"])){
         </div>
 <?php
     }
+}else{
+    /*
+    include 'lib/php-diff/difflib.php';
+    difffun("| แนวเพลง = [[ร็อคแอนด์โรลล์]]", "| แนวเพลง = ร็อคแอนด์โรลล์");
+    * */
 }
 ?>

@@ -61,12 +61,14 @@ function usubstr($str, $s, $t=Null){
 }
 
 function usubstr_replace($output, $replace, $posOpen, $posClose){
-    $tmp = usubstr($output, 0, $posOpen) . $replace . usubstr($output, $posOpen + $posClose);
+    $tmp = usubstr($output, 0, $posOpen) . 
+           $replace . 
+           usubstr($output, $posClose + $posOpen);
     return $tmp;
 } 
 
 function uchar($s, $i){
-    return usubstr($s, $i, $i+1);
+    return usubstr($s, $i, 1);
 }
 
 function casttoclass($class, $object){
