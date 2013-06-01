@@ -14,7 +14,7 @@ function connectwp($url){
     foreach($alldat as $i => $item){
         $page = $pages[$i];
         if(!strstr($page->get(), $item["url"])){
-            $fail[$item["title"]] = $item["url"]);
+            $fail[$item["title"]] = $item["url"];
             continue;
         }
         $break = False;
