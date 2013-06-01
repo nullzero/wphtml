@@ -6,8 +6,17 @@ function connectwp($url){
     $site = new Site("th");
     $data = array();
     $users = array();
-    foreach($site->exturlusage($url, 12) as $item){
-        $page = new Page($site, $item["title"]);
+    $cntopt = 0;
+    $alldat = $site->exturlusage($url, 50);
+    $titles = array();
+    foreach($alldat as $item) $titles[] = $item["title"];
+    $pages = $site->getAll($titles);
+    foreach($alldat as $i => $item){
+        $page = $pages[$i];
+        if(!strstr($page->get(), $item["url"])){
+            $fail[] = array($item["title"] => $item["url"]);
+            continue;
+        }
         $break = False;
         $adder = Null;
         $limit = 500;
@@ -25,11 +34,10 @@ function connectwp($url){
             }
         }
         if(($adder === Null) or ($adder == count($revisions) - 1)){
-            $data[] = array("error" => "", 
-                            "title" => $item["title"],
-                            "url" => $item["url"]);
+            $fail[] = array($item["title"] => $item["url"]);
         }else{
             if(array_key_exists($revisions[$adder]["user"], $optout)){
+                $cntopt++;
                 continue;
             }
             $cnt = 0;
@@ -46,10 +54,13 @@ function connectwp($url){
                             "text1" => $revisions[$adder+1]["obj"]->get(),
                             "text2" => $revisions[$adder]["obj"]->get(),);
             $users[] = $revisions[$adder]["user"];
+            if(count($data) == 12) break;
         }
     }
     return array("users" => array_count_values($users),
-                 "data" => $data);
+                 "data" => $data,
+                 "fail" => $fail,
+                 "cntopt" => $cntopt);
     /*
     try{
     }catch(Exception $e){

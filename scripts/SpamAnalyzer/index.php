@@ -27,6 +27,7 @@ if(!empty($_GET["title"])){
         <hr>
         <span style="color: red">หมายเหตุ: สำหรับแต่ละหน้า โปรแกรมจะตรวจสอบเฉพาะการแก้ไข 500 รายการล่าสุดเท่านั้น</span>
         <br />
+        <br />
         <div class="tabbable">
             <ul class="nav nav-tabs">
                 <li class="active">
@@ -40,7 +41,9 @@ if(!empty($_GET["title"])){
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="navtab-main">
-                    <h2>สรุปข้อมูลเบื้องต้น</h2>
+                    <h3>สรุปข้อมูลเบื้องต้น</h3>
+                    พบการเพิ่มลิงก์ทั้งหมด <?php echo count($dat); ?> รายการ
+                    <br />
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -56,6 +59,27 @@ if(!empty($_GET["title"])){
                             ?>
                         </tbody>
                     </table>
+                    <br />
+                    <br />
+                    <h4>หน้าที่ตรวจสอบการเพิ่มลิงก์ไม่ได้</h4>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>หน้า</th>
+                                <th>ยูอาร์แอล</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach($result["fail"] as $key => $val){
+                                echo "<tr><td>${key}</td><td>${val}</td></tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                    <br />
+                    <br />
+                    มีการเพิ่มลิงก์ที่ไม่นับ (เช่นโดยบอต) ทั้งหมด <?php echo $result["cntopt"]; ?> ครั้ง
                 </div>
                 <?php
                     for($i = 1; $i <= count($data); ++$i){

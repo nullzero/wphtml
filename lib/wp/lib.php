@@ -89,6 +89,34 @@ class Site{
         $tmp = $this->api($data);
         return $tmp["query"]["exturlusage"];
     }
+    
+    public function getAll($titles, $redirects=True){
+        $data = array(
+            "action" => "query",
+            "prop" => "revisions",
+            "rvprop" => "content",
+            "titles" => join("|", $titles),
+        );
+        if($redirects) $data["redirects"] = $redirects;
+        $data = $this->api($data);
+        $pages = array();
+        $data = $data["query"];
+        foreach($data["pages"] as $item){
+            $page = new Page($this, $item["title"]);
+            $item = reset($item["revisions"]);
+            $page->txt = $item["*"];
+            $pages[$page->title] = $page;
+        }
+        if(array_key_exists("redirects", $data)){
+            foreach($data["redirects"] as $redir){
+                $pages[$redir["from"]] = $pages[$redir["to"]];
+            }
+        }
+        $rets = array();
+        foreach($titles as $title) $rets[] = $pages[$title];
+        return $rets;
+        //return $pages;
+    }
 }
 
 class Page{
@@ -101,18 +129,8 @@ class Page{
     
     public function get($redirects=True, $force=False){
         if(isset($this->txt) and !$force) return $this->txt;
-        $data = array(
-            "action" => "query",
-            "prop" => "revisions",
-            "rvprop" => "content",
-            "titles" => $this->title,
-        );
-        if($redirects) $data["redirects"] = $redirects;
-        $data = $this->site->api($data);
-        $data = reset($data["query"]["pages"]);
-        $this->newtitle = $data["title"];
-        $data = reset($data["revisions"]);
-        $this->txt = $data["*"];
+        $pages = $this->site->getAll(array($this->title), $redirects);
+        $this->txt = $pages[0]->txt;
         return $this->txt;
     }
     
