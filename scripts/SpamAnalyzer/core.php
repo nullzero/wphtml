@@ -8,6 +8,12 @@ function connectwp($url){
     $users = array();
     $cntopt = 0;
     $alldat = $site->exturlusage($url, 30);
+    if(count($alldat) == 0){
+        return array("users" => array(),
+                     "data" => array(),
+                     "fail" => array(),
+                     "cntopt" => 0);
+    }
     $titles = array();
     $fail = array();
     foreach($alldat as $item) $titles[] = $item["title"];
