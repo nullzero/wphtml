@@ -4,7 +4,7 @@ include 'lib/wp/lib.php';
 function connectwp($url){
     $site = new Site("th");
     $data = array();
-    $user = array();
+    $users = array();
     foreach($site->exturlusage($url, 12) as $item){
         $page = new Page($site, $item["title"]);
         $break = False;
@@ -23,8 +23,10 @@ function connectwp($url){
                 $rig = $mid - 1;
             }
         }
-        if($adder == count($revisions) - 1){
-            $data[] = array("error" => "beyond limit or at start");
+        if(($adder === Null) or ($adder == count($revisions) - 1)){
+            $data[] = array("error" => "", 
+                            "title" => $item["title"],
+                            "url" => $item["url"]);
         }else{
             $cnt = 0;
             $i = $adder + 1;
@@ -34,9 +36,9 @@ function connectwp($url){
             }
             $data[] = array("user" => $revisions[$adder]["user"],
                             "timestamp" => $revisions[$adder]["timestamp"],
-                            "title" => $item["title"],
                             "url" => $item["url"],
                             "edits" => $cnt,
+                            "title" => $item["title"],
                             "text1" => $revisions[$adder+1]["obj"]->get(),
                             "text2" => $revisions[$adder]["obj"]->get(),);
             $users[] = $revisions[$adder]["user"];

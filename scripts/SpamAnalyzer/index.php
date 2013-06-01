@@ -6,7 +6,7 @@
             createTextbox(array("class" => "span4",
                                 "name" => "title",
                                 "id" => "inputTitle",
-                                "placeholder" => "กรอกยูอาร์แอลตรงนี้",
+                                "placeholder" => "กรอกยูอาร์แอลตรงนี้ ไม่ต้องมีโพรโตคอลนำหน้า",
                                 "value" => True));
         ?>
         <input type="submit" value="ตรวจสอบ" class="btn btn-info btn-small"/>
@@ -25,6 +25,7 @@ if(!empty($_GET["title"])){
         $data = $result["data"];
 ?>
         <hr>
+        <span style="color: red">หมายเหตุ: สำหรับแต่ละหน้า โปรแกรมจะตรวจสอบเฉพาะการแก้ไข 500 รายการล่าสุดเท่านั้น</span>
         <div class="tabbable">
             <ul class="nav nav-tabs">
                 <li class="active">
@@ -60,10 +61,13 @@ if(!empty($_GET["title"])){
                         echo "<div class='tab-pane' id='navtab-${i}'>";
                         $dat = $data[$i - 1];
                         if(array_key_exists("error", $dat)){
-                            echo "Unexpected error!";
+                            echo "โปรแกรมได้รับรายงานมาว่ามีการเพิ่มลิงก์ ${dat['url']} ในหน้า " .
+                                 "${dat['title']} แต่กลับ (1) ไม่พบลิงก์ดังกล่าวในหน้านั้น หรือ " . 
+                                 "(2) การเพิ่มลิงก์นั้นโปรดตรวจสอบด้วยตนเอง";
+                            echo "</div>"; // close tag
                             continue;
                         }
-                        echo "ผู้ใช้ ${dat['user']} เพิ่มลิงก์ ${dat['url']} " . 
+                        echo "ผู้ใช้ ${dat['user']} เพิ่มลิงก์ ${dat['url']} ที่หน้า ${dat['title']} " . 
                              "เมื่อ ${dat['timestamp']} โดยมีการแก้ไขก่อนหน้าการเพิ่มลิงก์นี้ " .
                              "${dat['edits']} ครั้ง<br />\n<br />\n<br />\n";
                         difffun($dat["text1"], $dat["text2"]);
