@@ -43,6 +43,7 @@ if(!empty($_GET["title"])){
                 <div class="tab-pane active" id="navtab-main">
                     <h3>สรุปข้อมูลเบื้องต้น</h3>
                     พบการเพิ่มลิงก์ทั้งหมด <?php echo count($data); ?> รายการ
+                    <?php if(count($data) != 0){ ?>
                     <br />
                     <table class="table table-hover">
                         <thead>
@@ -59,7 +60,7 @@ if(!empty($_GET["title"])){
                             ?>
                         </tbody>
                     </table>
-                    <br />
+                    <?php } if(count($result["fail"]) != 0){ ?>
                     <br />
                     <h4>หน้าที่ตรวจสอบการเพิ่มลิงก์ไม่ได้</h4>
                     <table class="table table-hover">
@@ -77,6 +78,7 @@ if(!empty($_GET["title"])){
                             ?>
                         </tbody>
                     </table>
+                    <?php } ?>
                     <br />
                     <br />
                     มีการเพิ่มลิงก์ที่ไม่นับ (เช่นโดยบอต) ทั้งหมด <?php echo $result["cntopt"]; ?> ครั้ง

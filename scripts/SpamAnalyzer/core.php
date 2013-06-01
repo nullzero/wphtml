@@ -7,7 +7,7 @@ function connectwp($url){
     $data = array();
     $users = array();
     $cntopt = 0;
-    $alldat = $site->exturlusage($url, 50);
+    $alldat = $site->exturlusage($url, 30);
     $titles = array();
     $fail = array();
     foreach($alldat as $item) $titles[] = $item["title"];

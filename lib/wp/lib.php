@@ -101,7 +101,6 @@ class Site{
         $data = $this->api($data);
         $pages = array();
         $data = $data["query"];
-        if(!array_key_exists("pages", $data)) return array();
         foreach($data["pages"] as $item){
             $page = new Page($this, $item["title"]);
             $item = reset($item["revisions"]);
