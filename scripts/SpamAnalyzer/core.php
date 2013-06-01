@@ -34,7 +34,7 @@ function connectwp($url){
             }
         }
         if(($adder === Null) or ($adder == count($revisions) - 1)){
-            $fail[] = array($item["title"] => $item["url"]);
+            $fail[$item["title"]] = $item["url"];
         }else{
             if(array_key_exists($revisions[$adder]["user"], $optout)){
                 $cntopt++;

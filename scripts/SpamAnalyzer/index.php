@@ -42,7 +42,7 @@ if(!empty($_GET["title"])){
             <div class="tab-content">
                 <div class="tab-pane active" id="navtab-main">
                     <h3>สรุปข้อมูลเบื้องต้น</h3>
-                    พบการเพิ่มลิงก์ทั้งหมด <?php echo count($dat); ?> รายการ
+                    พบการเพิ่มลิงก์ทั้งหมด <?php echo count($data); ?> รายการ
                     <br />
                     <table class="table table-hover">
                         <thead>
