@@ -104,7 +104,7 @@ if(!isset($script_name_s)){
   <hr>
   <center>
   <span style="font-size:14">
-    <?php echo L10N("If you encountered an error, please contact"); ?>
+    <?php echo L10N("If you encounter an error, please contact"); ?>
     <a href="//th.wikipedia.org/wiki/User_talk:Nullzero">
       <?php echo L10N("tools' owner"); ?>
     </a>

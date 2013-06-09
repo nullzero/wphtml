@@ -112,6 +112,11 @@ class Site{
                 $pages[$redir["from"]] = $pages[$redir["to"]];
             }
         }
+        if(array_key_exists("normalized", $data)){
+            foreach($data["normalized"] as $redir){
+                $pages[$redir["from"]] = $pages[$redir["to"]];
+            }
+        }
         $rets = array();
         foreach($titles as $title) $rets[] = $pages[$title];
         return $rets;

@@ -101,7 +101,13 @@ function connectwp($title){
                         "value" => "$lentext อักขระ",
                         "desc" => "บทความรู้ไหมว่าต้องมีความยาวของความเรียงอย่างต่ำ 2000 อักขระ");
         $revts = NULL;
+        $lastrevd = NULL;
+        $firstround = True;
         foreach($page->gethist() as $i){
+            if($firstround){
+                $firstround = False;
+                $lastrevd = $i;
+            }
             $revid = $i["revid"];
             $ts = $i["timestamp"];
             $diff = $ts->diff($now)->days;
@@ -111,6 +117,12 @@ function connectwp($title){
             }
             else break;
         }
+        $lastrevdic = array("value" => "รุ่นที่ตรวจสอบ คือรุ่นในวันที่ " .
+                                       "${lastrevd['timestamp']} (UTC) แก้ไขโดย " .
+                                       "${lastrevd['user']}",
+                            "result" => "normal",
+                            "text" => "ข้อมูลรุ่น",
+                            "desc" => "");
         $oldlendic = array("text" => "รุ่นเก่า", 
                            "desc" => "ความยาวความเรียงต้องเพิ่มขึ้นอย่างน้อย 2 เท่า" .
                                      "ในเวลา 14 วัน ยกเว้นเป็นบทความที่เพิ่งสร้างภายใน 14 วัน");
@@ -135,8 +147,8 @@ function connectwp($title){
         $user = $firstcontrib["user"];
         $createdic = array("text" => "สร้างบทความ",
                            "result" => grading($diff <= 14),
-                           "value" => "บทความนี้สร้างโดย $user เมื่อ " . $ts .
-                                      " UTC ($diff วันที่แล้ว)", 
+                           "value" => "บทความนี้สร้างโดย ${user} เมื่อ ${ts} UTC " . 
+                                      "(${diff} วันที่แล้ว)", 
                            "desc" => "ต้องสร้างภายใน 14 วัน " .
                                      "ยกเว้นมีความยาวเพิ่มขึ้น 2 เท่าภายใน 14 วัน");
         if($createdic["result"] == grading(True) or 
@@ -147,11 +159,13 @@ function connectwp($title){
                 $oldlendic["result"] = "normal";
         }
         return finalize(array(
+            "lastrev" => $lastrevdic,
             "inline" => $inlinedic,
             "newtext" => $text,
             "len" => $lendic,
             "oldlen" => $oldlendic,
-            "create" => $createdic));
+            "create" => $createdic
+        ));
             
     }catch(Exception $e){
         echo "<!--" . $e . "-->";

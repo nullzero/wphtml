@@ -10,7 +10,7 @@ $table["th"] = array(
     "Tools" => "เครื่องมือ",
     "Bot's status" => "สถานะของบอต",
     "All tools" => "เครื่องมือทั้งหมด",
-    "If you encountered an error, please contact" => "พบข้อผิดพลาด โปรดติดต่อ",
+    "If you encounter an error, please contact" => "พบข้อผิดพลาด โปรดติดต่อ",
     "tools' owner" => "ผู้พัฒนาเครื่องมือ",
 );
 
